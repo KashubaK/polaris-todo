@@ -1,0 +1,33 @@
+{
+  "name": "polaris-todo",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@shopify/polaris": "^2.5.0",
+    "axios": "^0.18.0",
+    "draft-js": "^0.10.5",
+    "react": "^16.4.2",
+    "react-dom": "^16.4.2",
+    "react-mde": "^5.8.0",
+    "react-redux": "^5.0.7",
+    "react-router-dom": "^4.3.1",
+    "react-scripts": "1.1.4",
+    "redux": "^4.0.0",
+    "redux-logger": "^3.0.6",
+    "showdown": "^1.8.6",
+    "simplemde": "^1.11.2"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "devDependencies": {
+    "enzyme": "^3.4.4",
+    "enzyme-adapter-react-16": "^1.2.0",
+    "jest-enzyme": "^6.0.3",
+    "jsdom": "^12.0.0",
+    "jsdom-global": "^3.0.2"
+  }
+}
