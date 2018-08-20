@@ -13,7 +13,7 @@ class TodoDetails extends React.Component {
 
     render() {
         if (`/${this.props.todo.id}` !== window.location.pathname) {
-            console.log(this.props.todo, window.location.pathname)
+            // redirects to correct URL upon duplication
             window.location.href = `/${this.props.todo.id}`;
         }
 
@@ -21,7 +21,7 @@ class TodoDetails extends React.Component {
             <div className="todo">
                 <Card sectioned>
                     <div className="todo-header" style={{backgroundImage: `url(${this.props.todo.image})`}}>
-                        <Heading element="h1">{this.props.todo.id}. {this.props.todo.title}</Heading>
+                        <Heading element="h1">{`${this.props.todo.id}. ${this.props.todo.title}`}</Heading>
                     </div>
 
                     <div className="todo-content" dangerouslySetInnerHTML={{__html: this.props.todo.body.html }}></div>

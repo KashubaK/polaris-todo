@@ -16,7 +16,7 @@ class Todo extends React.Component {
         super(props);
         
         const todo = this.props.todos.find(_todo => _todo.id === parseInt(this.props.match.params.id));
-        //this.props.selectTodo(todo);
+        this.props.selectTodo(todo);
 
         this.state = {
             editing: false
