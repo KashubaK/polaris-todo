@@ -13,33 +13,47 @@ class TodoList extends React.Component {
         this.state = { todos: [] };
     }
 
+    filterTodos() {
+        const todos = this.props.todos;
+        
+        return todos.filter(todo => {
+            if (this.props.viewingIncomplete === true && todo.complete === false) {
+                return true;
+            } else if (this.props.viewingIncomplete === false && todo.complete === true) {
+                return true;
+            } else {
+                return false;
+            }
+        })
+    }
+
     render() {
         const { todos } = this.props;
 
         return (
-            <Card>
-                <div className="todo-list">
-                    <ResourceList
-                        resourceName={{singular: "todo", plural: "todos"}}
-                        items={todos}
-                        renderItem={todo => {
-                            return (
-                                <ResourceList.Item
-                                    id={todo.id}
-                                    url={`/${todo.id}`}>
-                                    <div className="todo-item">
-                                        <div className="todo-item-badge" style={{ backgroundImage: `url(${todo.image})` }} />
-                                        <h3>
-                                            <small>{todo.id}. </small>
-
-                                            <TextStyle variation="strong">{todo.title}</TextStyle>
-                                        </h3>
-                                    </div>
-                                </ResourceList.Item>
-                            )
-                        }} />
-                </div>
-            </Card>
+            <div>
+                <Card>
+                    <div className="todo-list">
+                        <ResourceList
+                            resourceName={{singular: "todo", plural: "todos"}}
+                            items={this.filterTodos()}
+                            renderItem={todo => {
+                                return (
+                                    <ResourceList.Item
+                                        id={todo.id}
+                                        url={`/${todo.id}`}>
+                                        <div className="todo-item">
+                                            <div className="todo-item-badge" style={{ backgroundImage: `url(${todo.image})` }} />
+                                            <h3>
+                                                <TextStyle variation="strong">{todo.complete && "✓"} {todo.title}</TextStyle>
+                                            </h3>
+                                        </div>
+                                    </ResourceList.Item>
+                                )
+                            }} />
+                    </div>
+                </Card>
+            </div>
         )
     }
 }

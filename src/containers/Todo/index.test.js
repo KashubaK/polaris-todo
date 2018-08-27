@@ -19,8 +19,6 @@ describe('<Todo />', () => {
     }
   }
   
-  console.log(testTodo);
-
   const app = mount(
     <AppProvider>
       <Provider store={store}>

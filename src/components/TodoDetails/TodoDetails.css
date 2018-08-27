@@ -1,3 +1,7 @@
+.todo .Polaris-Card {
+    overflow: visible;
+}
+
 .todo > .Polaris-Card > .Polaris-Card__Section  {
     padding: 0
 }
@@ -9,21 +13,48 @@
     background-size: cover;
     background-position: center center;
     display: flex;
+    
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
 }
 
-.todo-header h1 {
-    font-size: 2.8rem;
+.todo-header h1, .todo-header h1 textarea  {
+    width: 100%;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow-x: hidden !important;
+
+    font-size: 4rem;
     line-height: 35px;
     
-    margin-top: auto;
-    margin-bottom: 2rem;
-    margin-left: 2rem;
+    margin: auto;
 
     text-shadow: 0 0 5px black;
 
     color: white;
+    text-align: center;
+    font-weight: bold;
+    padding: 0;
+    overflow-y: visible !important;
+    height: 50px !important;
+    line-height: 48px;
+    padding: 0 !important;
 }
 
-.todo-content {
-    padding: 2rem;
+.todo-header h1 .Polaris-TextField {
+    height: 4rem;
+}
+
+.todo-header h1 .Polaris-TextField__Backdrop  {
+    display: none;
+}
+
+.todo .ql-toolbar {
+    border-top: 0;
+    border-left: 0;
+    border-right: 0;
+}
+
+.todo .ql-container {
+    border: 0;
 }

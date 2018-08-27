@@ -6,19 +6,27 @@ var currentTodoId = oldState.todos.length;
 
 const store = createStore((state = oldState, action) => {
   switch (action.type) {
+    case 'COMPLETE_TODO':
+      var { todo } = action.payload;
+
+      todo.complete = todo.complete ? false : true;
+      todo.completed_at = new Date();
+
+      state.todos = state.todos.map(_todo => _todo.id === todo.id ? todo : _todo);
+      break;
     case 'NEW_TODO':
       state.todos = [
         {
           id: currentTodoId++,
           title: "New Todo",
-          body: {
-            markdown: "",
-            html: ""   
-          },
-          created_at: new Date(),
 
+          body: "",
+
+          created_at: new Date(),
+          complete: false,
           ...action.payload.todo
         },
+
         ...state.todos
       ];
 
@@ -65,9 +73,6 @@ export default store;
 export const testTodo = {
   id: 0,
   title: "New Todo",
-  body: {
-    markdown: "",
-    html: ""   
-  },
+  body: "",
   created_at: new Date()
 }

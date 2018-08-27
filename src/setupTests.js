@@ -1,6 +1,5 @@
 import { configure } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
-import 'jsdom-global/register'; //at the top of file , even  , before importing react
 
 configure({ adapter: new Adapter() });
 
@@ -22,3 +21,5 @@ return {
 };
 })();
 Object.defineProperty(global, 'localStorage', { value: localStorageMock });
+
+process.env.ENV = "test";

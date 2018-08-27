@@ -11,7 +11,7 @@ class Home extends React.Component {
     constructor(props) {
         super(props);
 
-        this.state = { progress: false };
+        this.state = { progress: false, viewingIncomplete: true };
     }
 
     
@@ -37,15 +37,26 @@ class Home extends React.Component {
     }
 
     render() {
+        console.log(this.props.todos)
         return (
             <Layout>
                 <Layout.Section>
                     <Page
                         title="Todos"
+                        secondaryActions={[
+                            {
+                                content: this.state.viewingIncomplete ? "View complete" : "View incomplete",
+                                onAction: () => {
+                                    this.setState({
+                                        viewingIncomplete: !this.state.viewingIncomplete
+                                    })
+                                }
+                            }
+                        ]}
                         primaryAction={{ content: "Add todo", loading: this.state.progress, onAction: () => this.handlePrimaryAction() }}
                         >
 
-                        <TodoList />
+                        <TodoList viewingIncomplete={this.state.viewingIncomplete} />
                     </Page>
                 </Layout.Section>
             </Layout>

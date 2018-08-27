@@ -13,7 +13,7 @@ describe('<TodoList />', () => {
   const app = mount(
     <AppProvider>
       <Provider store={store}>
-        <TodoList />
+        <TodoList viewingIncomplete={true} />
       </Provider>
     </AppProvider>
   );
@@ -35,7 +35,7 @@ describe('<TodoList />', () => {
   it('renders correct text for new todo', () => {
     const newListItem = app.find('.todo-item h3');
 
-    expect(newListItem.text()).toBe('0. New Todo');
+    expect(newListItem.text()).toBe(' New Todo');
   })
 
   it('adds a Todo when duplicateTodo is dispatched', () => {
@@ -52,6 +52,6 @@ describe('<TodoList />', () => {
   it('renders correct text for duplicated todo', () => {
     const newListItem = app.find('.todo-item h3');
 
-    expect(newListItem.first().text()).toBe('1. New Todo');
+    expect(newListItem.first().text()).toBe(' New Todo');
   })
 })

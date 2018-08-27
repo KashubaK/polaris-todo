@@ -4,10 +4,9 @@ import { BrowserRouter as Redirect } from 'react-router-dom';
  
 import { Layout, Page, useLinkComponent } from '@shopify/polaris';
 
-import { editTodo, selectTodo, duplicateTodo } from '../../actions';
+import { completeTodo, selectTodo, duplicateTodo } from '../../actions';
 
 import TodoDetails from '../../components/TodoDetails';
-import TodoForm from '../../components/TodoForm';
 import PropTypes from 'prop-types';
 
  
@@ -24,9 +23,7 @@ class Todo extends React.Component {
     }
 
     handlePrimaryAction() {
-        this.setState({
-            editing: !this.state.editing
-        });
+        this.props.completeTodo(this.props.todo)
     }
 
     handleSecondaryAction() {
@@ -59,16 +56,18 @@ class Todo extends React.Component {
         const nextURL = this.nextTodoURL();
         const previousURL = this.prevTodoURL();
 
-        console.log(this.props)
+        const todo = this.props.todo || {};
 
         return (
             <Layout>
                 <Layout.Section>
                     <Page
                         breadcrumbs={[{ content: 'Todos', url: '/' }]}
-                        title={this.props.todo.title}
-                        primaryAction={{ content: this.state.editing ? "Save" : "Edit", onAction: () => { this.handlePrimaryAction() }}}
-                        secondaryActions={[{ content: 'Duplicate', onAction: () => { this.handleSecondaryAction(); } }]}
+                        title={todo.complete ? `✓ ${todo.title}` : todo.title}
+                        primaryAction={{ content: todo.complete ? "Mark as incomplete" : "Mark as complete", onAction: () => { this.handlePrimaryAction() }}}
+                        secondaryActions={[
+                            { content: 'Duplicate', onAction: () => { this.handleSecondaryAction(); } }
+                        ]}
                         pagination={{
                             hasNext: nextURL ? true : false,
                             nextURL,
@@ -77,8 +76,7 @@ class Todo extends React.Component {
                             previousURL
                         }}>
                            
-                        {this.state.editing && <TodoForm todo={this.props.todo} />}
-                        {!this.state.editing && <TodoDetails />}
+                        <TodoDetails />
                     </Page>
                 </Layout.Section>
             </Layout>
@@ -92,7 +90,7 @@ export default connect(
         todo: state.todo
     }), 
     dispatch => ({ 
-        editTodo: todo => dispatch(editTodo(todo)),
+        completeTodo: todo => dispatch(completeTodo(todo)),
         selectTodo: todo => dispatch(selectTodo(todo)),
         duplicateTodo: todo => dispatch(duplicateTodo(todo))
     })

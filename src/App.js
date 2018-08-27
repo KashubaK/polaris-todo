@@ -10,8 +10,6 @@ import { AppProvider } from '@shopify/polaris';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-var currentTodoId = 0;
-
 class App extends Component {
   render() {
     return (

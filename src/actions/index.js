@@ -8,6 +8,11 @@ export const editTodo = todo => ({
     payload: { todo }
 });
 
+export const completeTodo = todo => ({
+    type: "COMPLETE_TODO",
+    payload: { todo }
+})
+
 export const removeTodo = todo => ({
     type: "REMOVE_TODO",
     payload: { todo }
