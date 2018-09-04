@@ -5,7 +5,7 @@ import Todo from './';
 import { Provider } from 'react-redux';
 import { createTodoStore, testTodo } from '../../store';
 
-import { newTodo, editTodo } from '../../actions';
+import { newTodo, editTodo, completeTodo } from '../../actions';
 
 import { AppProvider, Page } from '@shopify/polaris';
 
@@ -48,5 +48,17 @@ describe('<Todo />', () => {
     const title = app.find('.Polaris-DisplayText.Polaris-DisplayText--sizeLarge');
 
     expect(title.text()).toBe("Testing Title")
+  })
+
+  it('marks Todo as complete', () => {
+    store.dispatch(completeTodo(
+      store.getState().todo
+    ));
+
+    const title = app.find('.Polaris-Page__Title');
+    const completeButton = app.find('.Polaris-Page__Actions .Polaris-Page__PrimaryAction');
+
+    expect(title.text()).toBe("✓ Testing Title");
+    expect(completeButton.text()).toBe("Mark as incomplete");
   })
 })

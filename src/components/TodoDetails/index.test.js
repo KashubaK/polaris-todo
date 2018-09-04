@@ -7,7 +7,7 @@ import { store } from '../../store';
 
 import { AppProvider, Card } from '@shopify/polaris';
 
-import { newTodo, editTodo, selectTodo, duplicateTodo } from '../../actions';
+import { newTodo, editTodo, selectTodo, duplicateTodo, completeTodo } from '../../actions';
 
 describe('<TodoDetails />', () => {
   store.dispatch(newTodo());
@@ -48,7 +48,7 @@ describe('<TodoDetails />', () => {
     you can assume the same result will be achieved with the wysiwyg. Blotchy, but a temporary solution. */
   it('updates Todo body when mutated', () => {
     store.dispatch(editTodo({
-      ...store.getState().todos[0],
+      ...store.getState().todo,
       body: "New Test"
     }));
 
