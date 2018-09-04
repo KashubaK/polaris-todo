@@ -3,12 +3,17 @@ import { shallow, mount, render } from 'enzyme';
 import Home from './';
 
 import { Provider } from 'react-redux';
-import store from '../../store';
+import { createTodoStore } from '../../store';
 
 import { AppProvider, Page } from '@shopify/polaris';
 import TodoList from '../../components/TodoList';
 
-import { addTodo } from '../../actions';
+import { newTodo, selectTodo, editTodo, toggleViewingIncomplete } from '../../actions';
+
+const store = createTodoStore();
+
+store.dispatch(newTodo());
+store.dispatch(selectTodo(store.getState().todos[0]));
 
 describe('<Home />', () => {
   const app = mount(
@@ -33,5 +38,15 @@ describe('<Home />', () => {
     // There's another primary button that has display: none set, probably the spinner overlay
     const addTodo = app.find('.Polaris-Page__Actions .Polaris-Page__PrimaryAction .Polaris-Button.Polaris-Button--primary')
     expect(addTodo.length).toBe(1);
+  })
+
+  it('toggles button text between completed and not completed todos', () => {
+    store.dispatch(toggleViewingIncomplete());
+
+    app.update();
+
+    const toggleButton = app.find('.Polaris-Page__IndividualActions .Polaris-Page__Action');
+
+    expect(toggleButton.text()).toBe("View incomplete");
   })
 })

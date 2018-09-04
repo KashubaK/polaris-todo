@@ -1,12 +1,12 @@
 import React from 'react';
-import { newTodo } from '../../actions';
+import { newTodo, toggleViewingIncomplete } from '../../actions';
  
 import { Layout, Page, Spinner } from '@shopify/polaris';
 import TodoList from '../../components/TodoList';
 
 import { connect } from 'react-redux';
 import * as axios from 'axios';
- 
+
 class Home extends React.Component {
     constructor(props) {
         super(props);
@@ -45,18 +45,16 @@ class Home extends React.Component {
                         title="Todos"
                         secondaryActions={[
                             {
-                                content: this.state.viewingIncomplete ? "View complete" : "View incomplete",
+                                content: this.props.viewingIncomplete ? "View complete" : "View incomplete",
                                 onAction: () => {
-                                    this.setState({
-                                        viewingIncomplete: !this.state.viewingIncomplete
-                                    })
+                                    this.props.toggleViewingIncomplete()
                                 }
                             }
                         ]}
                         primaryAction={{ content: "Add todo", loading: this.state.progress, onAction: () => this.handlePrimaryAction() }}
                         >
 
-                        <TodoList viewingIncomplete={this.state.viewingIncomplete} />
+                        <TodoList />
                     </Page>
                 </Layout.Section>
             </Layout>
@@ -66,9 +64,11 @@ class Home extends React.Component {
 
 export default connect(
     state => ({
-        todos: state.todos
+        todos: state.todos,
+        viewingIncomplete: state.viewingIncomplete
     }),
     dispatch => ({ 
-        newTodo: todo => dispatch(newTodo(todo))
+        newTodo: todo => dispatch(newTodo(todo)),
+        toggleViewingIncomplete: () => dispatch(toggleViewingIncomplete())
     })
 )(Home);

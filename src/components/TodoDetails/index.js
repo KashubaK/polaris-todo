@@ -14,34 +14,19 @@ import { editTodo } from '../../actions';
 class TodoDetails extends React.Component {
     constructor(props) {
         super(props);
-
-        this.state = {
-            todo: props.todo,
-            text: ""
-        }
     }
     
-    handleTitleChange(newTitle) {
-        this.setState({
-            todo: {
-                ...this.state.todo,
-                title: newTitle
-            }
+    handleTitleChange(title) {
+        this.props.editTodo({
+            ...this.props.todo,
+            title
         })
     }
 
-    componentDidUpdate() {
-        this.props.editTodo(this.state.todo)
-    }
-
-    handleChange(text) {
-        this.setState({
-            text,
-            todo: {
-                ...this.state.todo,
-
-                body: text
-            }
+    handleChange(body) {
+        this.props.editTodo({
+            ...this.props.todo,
+            body
         })
     }
 
@@ -49,25 +34,31 @@ class TodoDetails extends React.Component {
         return (
             <div className="todo">
                 <Card sectioned>
-                    <div className="todo-header" style={{backgroundImage: `url(${this.state.todo.image})`}}>
+                    <div className="todo-header" style={{backgroundImage: `url(${this.props.todo.image})`}}>
                         <Heading element="h1">
                             <TextField
-                                value={this.state.todo.title}
+                                value={this.props.todo.title}
                                 onChange={title => this.handleTitleChange(title)}
                                 multiline
                             />
                         </Heading>
                     </div>
 
-                    {process.env.ENV !== "test" && <ReactQuill value={this.state.todo.body}
+                    {process.env.ENV !== "test" && <ReactQuill value={this.props.todo.body}
                                 onChange={text => this.handleChange(text)} />}
+
+                    {process.env.ENV == "test" && <TextField value={this.props.todo.body}
+                                onChange={text => this.handleChange(text)} multiline />}
                 </Card>
             </div>
         )
     }
 }
 
-export default connect(state => ({ todo: state.todo }), 
+export default connect(
+    state => ({ 
+        todo: state.todo 
+    }), 
     dispatch => ({ 
         editTodo: (todo) => dispatch(editTodo(todo))
     })

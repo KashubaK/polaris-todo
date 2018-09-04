@@ -3,7 +3,7 @@ import { shallow, mount, render } from 'enzyme';
 import TodoDetails from './';
 
 import { Provider } from 'react-redux';
-import store from '../../store';
+import { store } from '../../store';
 
 import { AppProvider, Card } from '@shopify/polaris';
 
@@ -29,19 +29,31 @@ describe('<TodoDetails />', () => {
   it('renders correct Todo heading', () => {
     const heading = app.find('.Polaris-TextField__Input');
 
-    expect(heading.text()).toBe("New Todo")
+    expect(heading.first().text()).toBe("New Todo")
   });
 
   it('updates Todo heading when mutated', () => {
     store.dispatch(editTodo({
-      title: "New Test",
-      ...store.getState().todo
+      ...store.getState().todo,
+      title: "New Test"
     }));
 
-    app.update();
-
-    const heading = app.find('.Polaris-TextField__Input');
+    const heading = app.find('.Polaris-TextField__Input').first();
 
     expect(heading.text()).toBe("New Test")
+  })
+
+  /* Changes wysiwyg to textfield. Fine anyways, there's no "presentation mode".
+    As long as the handleChange function calls editTodo and that change is reflected,
+    you can assume the same result will be achieved with the wysiwyg. Blotchy, but a temporary solution. */
+  it('updates Todo body when mutated', () => {
+    store.dispatch(editTodo({
+      ...store.getState().todos[0],
+      body: "New Test"
+    }));
+
+    const body = app.find('.Polaris-TextField__Input').last();
+
+    expect(body.text()).toBe("New Test")
   })
 })

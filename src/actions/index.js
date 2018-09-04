@@ -27,3 +27,7 @@ export const duplicateTodo = todo => ({
     type: "DUPLICATE_TODO",
     payload: { todo }
 })
+
+export const toggleViewingIncomplete = () => ({
+    type: "TOGGLE_VIEWING_INCOMPLETE"
+})

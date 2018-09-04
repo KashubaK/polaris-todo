@@ -60,7 +60,8 @@ class TodoList extends React.Component {
 
 export default connect(
     state => ({
-        todos: state.todos
+        todos: state.todos,
+        viewingIncomplete: state.viewingIncomplete
     }),
     dispatch => ({})
 )(TodoList);

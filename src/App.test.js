@@ -3,7 +3,7 @@ import { shallow, mount, render } from 'enzyme';
 import App from './App';
 
 import { Provider } from 'react-redux';
-import store from './store';
+import { store } from './store';
 
 import { MemoryRouter } from 'react-router';
 
